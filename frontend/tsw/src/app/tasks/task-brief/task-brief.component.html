@@ -1,4 +1,4 @@
-<div [matTooltip]="task.description" matTooltipPosition="below">
+<div [matTooltip]="task.description" matTooltipPosition="below" [id]="'t' + task._id">
   <span [class.checked]="task.done">{{ task.name }}</span>
   <mat-checkbox [checked]="task.done" (change)="checkboxChange($event)"></mat-checkbox>
   <mat-icon (click)="onDelete($event)">delete</mat-icon>

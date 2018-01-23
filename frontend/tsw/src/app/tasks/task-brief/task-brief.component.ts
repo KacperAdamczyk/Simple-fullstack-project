@@ -16,7 +16,7 @@ export class TaskBriefComponent implements OnInit {
   @Output() delete = new EventEmitter();
 
   @HostListener('click', ['$event']) onClick(event) {
-    if (event.path.length === 15) {
+    if (event.target !== document.querySelector(`#t${this.task._id} .mat-checkbox-inner-container`)) {
       this.router.navigate([ '/task', this.task._id ]);
     }
   }
