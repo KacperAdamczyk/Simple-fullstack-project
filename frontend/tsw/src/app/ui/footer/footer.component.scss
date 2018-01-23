@@ -1,0 +1,9 @@
+@import '../../shared/variables';
+
+footer {
+  text-align: center;
+  color: white;
+  background-color: $primary;
+  height: $footer-height;
+  line-height: $footer-height;
+}

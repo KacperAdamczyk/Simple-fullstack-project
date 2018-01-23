@@ -1,0 +1,23 @@
+.login-form {
+  width: 20%;
+  min-width: 250px;
+  margin: 10vh auto 0 auto;
+}
+
+h3 {
+  width: 100%;
+  text-align: center;
+}
+
+ p {
+   text-align: center;
+ }
+
+ button[disabled] {
+   background-color: gray;
+   border-color: gray;
+ }
+
+ label {
+   font-size: 0.9em;
+ }

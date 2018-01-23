@@ -1,0 +1,19 @@
+$size: 64px;
+
+:host {
+  display: flex;
+  justify-content: center;
+  margin-top: 10%;
+}
+
+h1 {
+  line-height: $size;
+}
+
+mat-icon {
+  font-size: $size;
+  text-align: center;
+  line-height: $size;
+  height: $size;
+  width: $size;
+}

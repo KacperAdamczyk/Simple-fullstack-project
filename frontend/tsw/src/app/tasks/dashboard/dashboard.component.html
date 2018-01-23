@@ -1,0 +1,11 @@
+<div class="options">
+  <mat-icon routerLink="/task">add</mat-icon>
+  <mat-form-field>
+    <mat-select [(value)]="filterOption">
+      <mat-option *ngFor="let option of filterOptions" [value]="option.value">{{ option.displayValue }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+ <div class="tasks">
+   <app-task-brief *ngFor="let task of tasks$ | async| tasks:filterOption" [task]="task" (delete)="getData()"></app-task-brief>
+ </div>

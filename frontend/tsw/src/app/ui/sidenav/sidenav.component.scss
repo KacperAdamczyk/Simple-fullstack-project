@@ -1,0 +1,28 @@
+@import "../../shared/variables";
+
+mat-sidenav {
+  box-shadow: lightgray 3px 0 5px;
+  padding: 5px 8px 0 8px;
+}
+
+mat-sidenav-container {
+  min-height: calc(100vh - #{$footer-height});
+  padding-top: 64px;
+}
+
+section {
+  padding: 5px;
+}
+
+ul {
+  list-style: none;
+  padding: 3px;
+  font-size: 1.2rem;
+  li {
+    text-align: center;
+    .active {
+      background-color: #d9d7d9;
+      border-radius: 20px;
+    }
+  }
+}

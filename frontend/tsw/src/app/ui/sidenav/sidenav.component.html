@@ -1,0 +1,20 @@
+<mat-sidenav-container class="example-container">
+  <mat-sidenav class="example-sidenav"
+               opened="false"
+               [mode]="mobileQuery.matches ? 'over' : 'side'"
+               fixedInViewport="true"
+               [fixedTopGap]="mobileQuery.matches ? 56 : 64">
+     <ul>
+       <li *ngFor="let option of isLoggedIn() ? options : optionsNotLogged">
+         <a class="nav-link" [routerLink]="option.path" routerLinkActive="active">{{ option.name }}</a>
+       </li>
+       <li *ngIf="isLoggedIn()"><a class="nav-link" href="#" (click)="logOut()">Wyloguj</a></li>
+     </ul>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+   <section>
+     <ng-content></ng-content>
+   </section>
+  </mat-sidenav-content>
+</mat-sidenav-container>

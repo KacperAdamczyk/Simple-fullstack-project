@@ -1,0 +1,60 @@
+$height: 80px;
+$width: 300px;
+
+:host div {
+  cursor: pointer;
+  border: 1px solid #f3f3f3;
+  border-radius: 5px;
+  min-height: $height;
+  min-width: $width;
+  box-shadow: lightgray 2px 2px 3px;
+  margin: 5px;
+  padding: 5px;
+
+  display: grid;
+  grid-template-columns: auto 25px 25px;
+  grid-template-areas: 'name checkbox delete'
+                        'doneat doneat doneat';
+  align-items: center;
+  align-content: center;
+  justify-items: center;
+}
+
+:host(.highlighted) div {
+  border: 2px gold solid;
+  box-shadow: gold 3px 2px 2px;
+  background-color: rgba(255, 215, 0, 0.3);
+}
+
+span:first-child {
+  grid-area: name;
+  text-align: center;
+  flex-grow: 1;
+  padding-right: 10px;
+  font-size: 1.4em;
+  word-break: break-all;
+}
+
+mat-checkbox {
+  margin-top: 8px;
+}
+
+mat-icon {
+  grid-area: delete;
+  cursor: pointer;
+}
+
+span ~ span {
+  grid-area: doneat;
+  justify-self: right;
+  color: gray;
+  font-size: 0.7em;
+  padding-right: 20px;
+}
+
+.checked {
+  text-decoration-line: line-through;
+  color: green;
+}
+
+

@@ -1,0 +1,24 @@
+<div class="register-form">
+  <h3>Rejestracja</h3>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-group">
+      <label for="username">Login</label>
+      <input type="text" class="form-control" [class.is-invalid]="username.invalid && (username.dirty || username.touched)"
+             id="username" placeholder="login" formControlName="username">
+    </div>
+    <div class="form-group">
+      <label for="password">Hasło</label>
+      <input type="password" class="form-control" [class.is-invalid]="password.invalid && (password.dirty || password.touched)"
+             id="password" placeholder="Hasło" formControlName="password">
+    </div>
+    <div class="form-group">
+      <label for="confirm-password">Powtórz hasło</label>
+      <input type="password" class="form-control" [class.is-invalid]="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)"
+             id="confirm-password" placeholder="Powtórz hasło" formControlName="confirmPassword">
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="usernameTaken">
+      Login jest już zajęty
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Zarejestruj się</button>
+  </form>
+</div>

@@ -1,0 +1,19 @@
+.options {
+  display: flex;
+}
+
+mat-icon {
+  display: block;
+  $size: 64px;
+  font-size: 3.5em;
+  text-align: center;
+  line-height: $size;
+  height: $size;
+  width: $size;
+  cursor: pointer;
+}
+
+.tasks {
+  display: flex;
+  flex-wrap: wrap;
+}

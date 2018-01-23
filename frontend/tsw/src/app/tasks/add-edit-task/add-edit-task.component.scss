@@ -1,0 +1,32 @@
+.task-form {
+  width: 20%;
+  min-width: 250px;
+  margin: 10vh auto 0 auto;
+}
+
+h3 {
+  width: 100%;
+  text-align: center;
+}
+
+p {
+  text-align: center;
+}
+
+button {
+  float: right;
+  margin: 3px;
+  &[disabled] {
+    background-color: gray;
+    border-color: gray;
+  }
+}
+
+label {
+  font-size: 0.9em;
+}
+
+.form-check mat-checkbox {
+  position: relative;
+  top: 3px;
+}
