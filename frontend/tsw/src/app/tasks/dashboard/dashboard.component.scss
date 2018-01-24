@@ -18,3 +18,9 @@ mat-icon {
   justify-content: space-evenly;
   flex-wrap: wrap;
 }
+
+@media screen and (min-width: 500px) {
+  .tasks {
+    justify-content: flex-start;
+  }
+}
