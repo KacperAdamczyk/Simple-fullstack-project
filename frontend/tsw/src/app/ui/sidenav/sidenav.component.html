@@ -6,7 +6,7 @@
                [fixedTopGap]="mobileQuery.matches ? 56 : 64">
      <ul>
        <li *ngFor="let option of isLoggedIn() ? options : optionsNotLogged">
-         <a class="nav-link" [routerLink]="option.path" routerLinkActive="active">{{ option.name }}</a>
+         <a class="nav-link" [routerLink]="option.path" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{ option.name }}</a>
        </li>
        <li *ngIf="isLoggedIn()"><a class="nav-link" href="#" (click)="logOut()">Wyloguj</a></li>
      </ul>
