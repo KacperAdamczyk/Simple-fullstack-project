@@ -36,6 +36,7 @@ span:first-child {
 }
 
 mat-checkbox {
+  grid-area: checkbox;
   margin-top: 8px;
 }
 
@@ -55,6 +56,10 @@ span ~ span {
 .checked {
   text-decoration-line: line-through;
   color: green;
+}
+
+:host(.task-active) div {
+ background-color: red;
 }
 
 

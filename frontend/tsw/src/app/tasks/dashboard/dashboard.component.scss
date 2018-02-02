@@ -1,5 +1,14 @@
 .options {
+  grid-area: options;
   display: flex;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 2fr 10fr;
+  grid-template-rows: 50px auto;
+  grid-template-areas: "options options"
+                       "brief details";
 }
 
 mat-icon {
@@ -14,13 +23,11 @@ mat-icon {
 }
 
 .tasks {
-  display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
+  grid-area: brief;
 }
 
-@media screen and (min-width: 500px) {
-  .tasks {
-    justify-content: flex-start;
-  }
+.details {
+  grid-area: details;
+  border: 2px dashed red;
 }
+

@@ -4,22 +4,37 @@ import { AddEditTaskComponent } from './add-edit-task/add-edit-task.component';
 import { UserLoggedInGuard } from '../user/user-logged-in.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RouterModule, Routes } from '@angular/router';
+import { TaskDetailsComponent } from '../task-details/task-details.component';
 
 const routes: Routes = [
   {
     path: 'tasks',
     component: DashboardComponent,
-    canActivate: [ UserLoggedInGuard ]
-  },
-  {
-    path: 'task',
-    component: AddEditTaskComponent,
-    canActivate: [ UserLoggedInGuard ]
-  },
-  {
-    path: 'task/:id',
-    component: AddEditTaskComponent,
-    canActivate: [ UserLoggedInGuard ]
+    canActivate: [ UserLoggedInGuard ],
+    children: [
+      {
+        path: '',
+        canActivateChild: [ UserLoggedInGuard ],
+        children: [
+          {
+            path: '',
+            component: TaskDetailsComponent,
+          },
+          {
+            path: ':id',
+            component: TaskDetailsComponent,
+          },
+          {
+            path: 'add',
+            component: AddEditTaskComponent,
+          },
+          {
+            path: 'edit/:id',
+            component: AddEditTaskComponent,
+          }
+        ]
+      }
+    ]
   },
 ];
 
@@ -30,4 +45,5 @@ const routes: Routes = [
   ],
   exports: [ RouterModule ]
 })
-export class TasksRoutingModule { }
+export class TasksRoutingModule {
+}

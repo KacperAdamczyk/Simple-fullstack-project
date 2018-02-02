@@ -1,15 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AppRoutingModule } from '../../app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+import { StopClickEventPropagationDirective } from '../stop-click-event-propagation.directive';
 
 @NgModule({
   imports: [
     CommonModule,
   ],
   exports: [
-    HttpClientModule
+    HttpClientModule,
+    StopClickEventPropagationDirective
   ],
-  declarations: []
+  declarations: [
+    StopClickEventPropagationDirective
+  ]
 })
 export class SharedModule { }
