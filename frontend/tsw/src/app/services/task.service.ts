@@ -5,13 +5,24 @@ import 'rxjs/add/operator/map';
 import { HttpClient } from '@angular/common/http';
 import { ITask } from '../tasks/itask';
 import { IResponse } from '../shared/iresponse';
+import { Observable } from 'rxjs/Observable';
 
 const baseUrl = environment.production ? '' : 'http://localhost:8080/';
 
 @Injectable()
 export class TaskService {
+  tasks$: Observable<ITask>;
 
   constructor(private http: HttpClient) {
+    this.updateTasks();
+  }
+
+  updateTasks() {
+    this.tasks$ = this.getTasksForUser();
+  }
+
+  getTasks() {
+    return this.tasks$;
   }
 
   getTasksForUser() {
@@ -33,13 +44,21 @@ export class TaskService {
   }
 
   update(task: ITask): Promise<IResponse> {
+    function convertDate(date) {
+      if (date instanceof Date) {
+        return date.getTime();
+      } else if (date instanceof Number) {
+        return date;
+      }
+    }
+
     const taskToSend = {
       _id: task._id,
       name: task.name,
       description: task.description,
       highlighted: task.highlighted,
       done: task.done,
-      doneAt: task.done ? task.doneAt.getTime() : null
+      doneAt: task.done ? convertDate(task.doneAt) : null
     };
     return this.http.put<IResponse>(baseUrl + 'tasks', taskToSend, { withCredentials: true }).toPromise();
   }

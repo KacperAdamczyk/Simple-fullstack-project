@@ -1,0 +1,10 @@
+<div class="task--empty" *ngIf="(task$ | async) === null; else details">
+  <p>Wybierz zadanie</p>
+</div>
+<ng-template #details>
+  <div class="task--details">
+    <h3 class="task__details-name">{{ (task$ | async)?.name }}</h3>
+    <p class="task__details-desc">{{ (task$ | async)?.description }}</p>
+    <button class="btn btn-outline-primary" [routerLink]="['../edit', (task$ | async)?._id]">Edytuj</button>
+  </div>
+</ng-template>

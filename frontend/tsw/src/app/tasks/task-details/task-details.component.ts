@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { ITask } from '../tasks/itask';
+import { ITask } from '../itask';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
-import { TaskService } from '../services/task.service';
+import { TaskService } from '../../services/task.service';
 
 @Component({
   selector: 'app-task-details',
@@ -12,6 +12,7 @@ import { TaskService } from '../services/task.service';
 })
 export class TaskDetailsComponent implements OnInit {
   task$: Observable<ITask>;
+
   constructor(private route: ActivatedRoute, private taskService: TaskService) { }
 
   ngOnInit() {

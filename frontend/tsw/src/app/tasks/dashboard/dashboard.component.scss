@@ -1,17 +1,20 @@
-.options {
+$border-color: #ebebeb;
+
+.content {
+  display: grid;
+  grid-template-columns: 3fr 9fr;
+  grid-template-rows: 70px auto;
+  grid-template-areas: "options options"
+                       "brief details";
+  grid-column-gap: 10px;
+}
+
+.content__options {
   grid-area: options;
   display: flex;
 }
 
-.content {
-  display: grid;
-  grid-template-columns: 2fr 10fr;
-  grid-template-rows: 50px auto;
-  grid-template-areas: "options options"
-                       "brief details";
-}
-
-mat-icon {
+.content__add-button {
   display: block;
   $size: 64px;
   font-size: 3.5em;
@@ -22,12 +25,26 @@ mat-icon {
   cursor: pointer;
 }
 
-.tasks {
+.content__tasks-brief {
   grid-area: brief;
 }
 
-.details {
+.content__task-details {
   grid-area: details;
-  border: 2px dashed red;
+  align-self: start;
+  border: 1px solid $border-color;
+  border-radius: 5px;
+  padding: 10px;
+  //box-shadow: darken($border-color, 10%) 2px 2px 1px;
+  max-width: 500px;
+}
+
+@media screen and (max-width: 600px) {
+  .content {
+    grid-template-columns: 98%;
+  }
+  .content__task-details {
+    display: none;
+  }
 }
 

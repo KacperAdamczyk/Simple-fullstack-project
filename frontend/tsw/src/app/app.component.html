@@ -1,6 +1,9 @@
-<app-toolbar (sidebarToggle)="sidenav.toggle()"></app-toolbar>
+<app-toolbar appStopClickEventPropagation (sidebarToggle)="sidenav.toggle()"></app-toolbar>
 <app-sidenav #sidenav>
   <router-outlet></router-outlet>
 </app-sidenav>
 <app-footer></app-footer>
-<cookie-law position="bottom">Ta strona korzysta z ciasteczek (cookies) <a href="https://cookiesandyou.com/" target="_blank">Dowiedz się więcej</a></cookie-law>
+<cookie-law appStopClickEventPropagation position="bottom">Ta strona korzysta z ciasteczek (cookies) <a href="https://cookiesandyou.com/"
+                                                                           target="_blank">Dowiedz się więcej</a>
+</cookie-law>
+

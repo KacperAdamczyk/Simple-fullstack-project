@@ -1,24 +1,22 @@
 .task-form {
   width: 20%;
   min-width: 250px;
-  margin: 10vh auto 0 auto;
+  margin: 10px auto 0 auto;
 }
 
-h3 {
+.task-form--header {
   width: 100%;
   text-align: center;
 }
 
-p {
-  text-align: center;
-}
-
-button {
-  float: right;
+.task-form__button {
   margin: 3px;
   &[disabled] {
     background-color: gray;
     border-color: gray;
+  }
+  &--submit {
+    float: right;
   }
 }
 

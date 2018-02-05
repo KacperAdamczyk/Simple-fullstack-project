@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TaskService } from '../../services/task.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
@@ -17,7 +17,6 @@ import { of } from 'rxjs/observable/of';
 export class AddEditTaskComponent implements OnInit, OnDestroy {
   form: FormGroup;
   newTask = true;
-  task$: Observable<ITask | null>;
   task: ITask;
   taskSub: Subscription = null;
 
@@ -26,7 +25,7 @@ export class AddEditTaskComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.task$ = this.route.paramMap.switchMap((params: ParamMap) => {
+    this.taskSub = this.route.paramMap.switchMap((params: ParamMap) => {
       const id = params.get('id');
       this.newTask = !id;
       if (!this.newTask) {
@@ -34,21 +33,21 @@ export class AddEditTaskComponent implements OnInit, OnDestroy {
       } else {
         return of(null);
       }
+    }).subscribe((task) => {
+      this.task = task;
+      this.fillForm();
     });
-      this.taskSub = this.task$.subscribe((task) => this.fillForm(task));
   }
 
   ngOnDestroy() {
-      this.taskSub.unsubscribe();
+    this.taskSub.unsubscribe();
   }
 
-  fillForm(task: ITask) {
-    if (!task) {
+  fillForm() {
+    if (!this.task) {
       return;
     }
-    this.task = task;
-    this.task.doneAt = new Date(task.doneAt);
-    this.form.patchValue(task);
+    this.form.patchValue(this.task);
   }
 
   createForm() {
@@ -64,10 +63,11 @@ export class AddEditTaskComponent implements OnInit, OnDestroy {
     const desc = this.form.get('description').value;
     const highlighted = this.form.get('highlighted').value;
     this.taskService.add(name, desc, highlighted)
-      .then(() => this.router.navigate([ '/tasks' ]),
-        (err) => {
-          this.router.navigate([ '/error' ]);
-        });
+      .then(() => {
+          this.taskService.updateTasks();
+          this.router.navigate([ '../' ], { relativeTo: this.route });
+        },
+        () => this.router.navigate([ '/error' ]));
   }
 
   edit() {
@@ -75,9 +75,10 @@ export class AddEditTaskComponent implements OnInit, OnDestroy {
     this.task.description = this.form.get('description').value;
     this.task.highlighted = this.form.get('highlighted').value;
     this.taskService.update(this.task)
-      .then(() => this.router.navigate([ '/tasks' ]),
-        (err) => {
-          this.router.navigate([ '/error' ]);
-        });
+      .then(() => {
+          this.taskService.updateTasks();
+          this.router.navigate([ '/tasks' ]);
+        },
+        () => this.router.navigate([ '/error' ]));
   }
 }

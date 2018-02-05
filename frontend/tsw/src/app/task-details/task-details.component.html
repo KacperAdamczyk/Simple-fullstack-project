@@ -1,6 +1,0 @@
-<div class="message" *ngIf="!(task$ | async); else details">
-  Wybierz zadanie
-</div>
-<ng-template #details>
-  {{ task$ | async | json }}
-</ng-template>

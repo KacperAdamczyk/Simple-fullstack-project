@@ -1,16 +1,17 @@
 <div class="content">
-  <div class="options">
-    <mat-icon routerLink="./add">add</mat-icon>
+  <div appStopClickEventPropagation class="content__options">
+    <mat-icon class="content__add-button" [routerLink]="mobileQuery.matches ? '/add' : '/tasks/add'">add</mat-icon>
     <mat-form-field>
       <mat-select [(value)]="filterOption">
         <mat-option *ngFor="let option of filterOptions" [value]="option.value">{{ option.displayValue }}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
-  <div class="tasks">
-    <app-task-brief appStopClickEventPropagation *ngFor="let task of tasks$ | async | tasks:filterOption" [task]="task" (delete)="getData()"></app-task-brief>
+  <div appStopClickEventPropagation class="content__tasks-brief">
+    <app-task-brief *ngFor="let task of getTasks() | async | tasks:filterOption" [task]="task"
+                    (delete)="updateTasks()"></app-task-brief>
   </div>
-  <div class="details">
+  <div appStopClickEventPropagation class="content__task-details">
     <router-outlet></router-outlet>
   </div>
 </div>

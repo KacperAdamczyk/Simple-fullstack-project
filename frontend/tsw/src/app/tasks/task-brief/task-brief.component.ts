@@ -1,43 +1,37 @@
-import { Component, EventEmitter, HostBinding, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectorRef, Component, EventEmitter, HostBinding, Input, OnDestroy, OnInit,
+  Output
+} from '@angular/core';
 import { ITask } from '../itask';
 import { TaskService } from '../../services/task.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import 'rxjs/operator/switchMap';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-task-brief',
   templateUrl: './task-brief.component.html',
   styleUrls: [ './task-brief.component.scss' ]
 })
-export class TaskBriefComponent implements OnInit, OnDestroy {
-  @HostBinding('class.highlighted') highlighted: boolean;
-  @HostBinding('class.task-active') active: boolean;
+export class TaskBriefComponent implements OnInit {
+  @HostBinding('class.task-brief--highlighted') highlighted: boolean;
 
   @Input() task: ITask;
 
   @Output() delete = new EventEmitter();
 
-  @HostListener('click', [ '$event' ]) onClick(event) {
-    if (event.target !== document.querySelector(`#t${this.task._id} .mat-checkbox-inner-container`)) {
-      this.router.navigate([ './', this.task._id ], { relativeTo: this.route });
-    }
-    //event.stopPropagation();
-  }
+  mobileQuery: MediaQueryList;
+  private _mobileQueryListener: () => void;
 
-  constructor(private taskService: TaskService, private router: Router, private route: ActivatedRoute) {
+  constructor(private taskService: TaskService, private router: Router, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
   }
 
   ngOnInit() {
     this.highlighted = this.task.highlighted;
-    this.route.paramMap.subscribe((params) => {
-      this.active = params.get('id') === this.task._id;
-    });
-    document.querySelector('body').addEventListener('click', () => this.router.navigate([ '/tasks' ]));
-  }
-
-  ngOnDestroy() {
-    document.querySelector('body').removeEventListener('click', () => this.router.navigate([ '/tasks' ]));
   }
 
   checkboxChange(event) {
@@ -48,9 +42,12 @@ export class TaskBriefComponent implements OnInit, OnDestroy {
       .catch(() => this.router.navigate([ '/error' ]));
   }
 
-  onDelete(event) {
-    event.stopPropagation();
+  onDelete() {
     this.taskService.delete(this.task._id).then(() => this.delete.emit(),
       () => this.router.navigate([ '/error' ]));
+  }
+
+  getPath() {
+    return this.mobileQuery.matches ? ['/edit', this.task._id] : ['./', this.task._id]
   }
 }

@@ -1,15 +1,16 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ITask } from '../itask';
 import { TaskService } from '../../services/task.service';
 import { Observable } from 'rxjs/Observable';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: [ './dashboard.component.scss' ]
 })
-export class DashboardComponent implements OnInit {
-  tasks$: Observable<ITask[]>;
+export class DashboardComponent implements OnInit, OnDestroy {
   filterOptions = [
     { value: 'full', displayValue: 'Wszystko' },
     { value: 'done', displayValue: 'Zakończone' },
@@ -17,13 +18,28 @@ export class DashboardComponent implements OnInit {
   ];
   filterOption = 'full';
 
-  constructor(private taskService: TaskService) { }
+  mobileQuery: MediaQueryList;
+  private _mobileQueryListener: () => void;
 
-  ngOnInit() {
-    this.getData();
+  constructor(private taskService: TaskService, private router: Router, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
   }
 
-  getData() {
-    this.tasks$ = <Observable<ITask[]>>this.taskService.getTasksForUser();
+  ngOnInit() {
+    document.querySelector('body').addEventListener('click', () => this.router.navigate([ '/tasks' ]));
+  }
+
+  ngOnDestroy() {
+    document.querySelector('body').removeEventListener('click', () => this.router.navigate([ '/tasks' ]));
+  }
+
+  getTasks() {
+    return this.taskService.getTasks();
+  }
+
+  updateTasks() {
+    this.taskService.updateTasks();
   }
 }

@@ -1,5 +1,5 @@
 <div class="task-form">
-  <h3>{{ newTask ? 'Utwórz nowe zadanie' : 'Edytuj zadanie' }}</h3>
+  <h3 class="task-form--header">{{ newTask ? 'Utwórz nowe zadanie' : 'Edytuj zadanie' }}</h3>
   <form [formGroup]="form" (ngSubmit)="newTask ? add() : edit()">
     <div class="form-group">
       <label for="name">Nazwa:</label>
@@ -15,6 +15,7 @@
       <mat-checkbox id="highlighted" formControlName="highlighted"></mat-checkbox>
       <label class="form-check-label" for="highlighted">Wyróżnij</label>
     </div>
-    <button type="submit" class="btn btn-primary" [disabled]="!form.valid">{{ newTask ? 'Dodaj' : 'Edytuj' }}</button>
+    <button type="button" class="btn btn-outline-primary task-form__button" [routerLink]="newTask ? '/' : ['/tasks/', task?._id]">Anuluj</button>
+    <button type="submit" class="btn btn-primary task-form__button task-form__button--submit" [disabled]="!form.valid">{{ newTask ? 'Dodaj' : 'Zapisz' }}</button>
   </form>
 </div>

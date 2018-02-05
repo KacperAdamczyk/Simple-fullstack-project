@@ -18,7 +18,7 @@ export class SidenavComponent implements OnInit, OnDestroy {
   @ViewChild(MatSidenav) sidenav: MatSidenav;
   options: IOption[] = [
     { name: 'Lista zadań', path: '/tasks' },
-    { name: 'Dodaj zadanie', path: '/task' },
+    { name: 'Dodaj zadanie', path: '/add' },
   ];
 
   optionsNotLogged: IOption[] = [

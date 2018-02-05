@@ -1,6 +1,10 @@
-<div [matTooltip]="task.description" matTooltipPosition="below" [id]="'t' + task._id">
-  <span [class.checked]="task.done">{{ task.name }}</span>
-  <mat-checkbox [checked]="task.done" (change)="checkboxChange($event)"></mat-checkbox>
-  <mat-icon (click)="onDelete($event)">delete</mat-icon>
-  <span *ngIf="task.doneAt">Zakończono: {{ task.doneAt | date }}</span>
+<div class="task-brief" [matTooltip]="task.description" matTooltipPosition="below" [id]="'t' + task._id"
+      routerLinkActive="task-brief--active"
+     [routerLinkActiveOptions]="{exact: true}">
+  <span class="task-brief__name" [routerLink]="getPath()" [class.task-brief__name--done]="task.done">{{ task.name }}</span>
+  <div class="task-brief__checkbox" matTooltip="Zakończ" matTooltipPosition="above">
+    <mat-checkbox [checked]="task.done" (change)="checkboxChange($event)"></mat-checkbox>
+  </div>
+  <mat-icon class="task-brief__recycle-bin-icon" (click)="onDelete($event)">delete</mat-icon>
+  <span class="task-brief__done-at" *ngIf="task.doneAt">Zakończono: {{ task.doneAt | date }}</span>
 </div>

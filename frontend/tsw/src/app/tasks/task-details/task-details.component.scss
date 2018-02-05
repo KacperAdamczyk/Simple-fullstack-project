@@ -1,0 +1,29 @@
+$font-size: 18px;
+
+.task--empty {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  p {
+    color: #9b9b9b;
+    text-align: center;
+    margin-bottom: 0;
+    width: 100%;
+  }
+}
+
+.task--details {
+ padding: 10px;
+}
+
+.task__details-name {
+  color: lighten(black, 30%);
+}
+
+.task__details-desc {
+
+}
+
+.task__details--edit {
+
+}

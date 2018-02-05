@@ -8,7 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AddEditTaskComponent } from './add-edit-task/add-edit-task.component';
 import { TasksPipe } from './tasks.pipe';
 import { TasksRoutingModule } from './tasks-routing.module';
-import { TaskDetailsComponent } from '../task-details/task-details.component';
+import { TaskDetailsComponent } from './task-details/task-details.component';
 
 @NgModule({
   imports: [
