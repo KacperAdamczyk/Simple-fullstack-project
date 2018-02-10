@@ -20,6 +20,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
+  private bodyListener = () => this.router.navigate([ '/tasks' ])
 
   constructor(private taskService: TaskService, private router: Router, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
@@ -28,11 +29,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    document.querySelector('body').addEventListener('click', () => this.router.navigate([ '/tasks' ]));
+    document.querySelector('body').addEventListener('click', this.bodyListener);
   }
 
   ngOnDestroy() {
-    document.querySelector('body').removeEventListener('click', () => this.router.navigate([ '/tasks' ]));
+    document.querySelector('body').removeEventListener('click', this.bodyListener);
+    this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
   getTasks() {

@@ -9,13 +9,14 @@ $task-brief-border-color: #f3f3f3;
   border: 1px solid $task-brief-border-color;
   border-radius: 5px;
   min-height: $height;
-  min-width: $width;
+  width: $width;
   box-shadow: lightgray 2px 2px 3px;
   margin: 5px;
   padding: 5px;
 
   display: grid;
   grid-template-columns: auto 25px 25px;
+  grid-template-rows: 100% auto;
   grid-template-areas: 'name checkbox delete'
                         'doneat doneat doneat';
   align-items: center;
@@ -23,8 +24,7 @@ $task-brief-border-color: #f3f3f3;
   justify-items: center;
 
   &--active {
-    background-color: darken($task-brief-background-color, 8%);
-    border-color: darken($task-brief-border-color, 10%);
+    outline: rgba(25, 118, 210, 0.4) 2px solid;
   }
 }
 
@@ -43,6 +43,7 @@ $task-brief-border-color: #f3f3f3;
   padding-right: 10px;
   font-size: 1.4em;
   word-break: break-all;
+  outline: none;
   &--done {
     text-decoration-line: line-through;
     color: green;

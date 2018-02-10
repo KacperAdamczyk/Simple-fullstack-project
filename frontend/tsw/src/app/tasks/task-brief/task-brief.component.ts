@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { ITask } from '../itask';
 import { TaskService } from '../../services/task.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 import 'rxjs/operator/switchMap';
 import { MediaMatcher } from '@angular/cdk/layout';
@@ -14,7 +14,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
   templateUrl: './task-brief.component.html',
   styleUrls: [ './task-brief.component.scss' ]
 })
-export class TaskBriefComponent implements OnInit {
+export class TaskBriefComponent implements OnInit, OnDestroy {
   @HostBinding('class.task-brief--highlighted') highlighted: boolean;
 
   @Input() task: ITask;
@@ -23,6 +23,9 @@ export class TaskBriefComponent implements OnInit {
 
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
+  get isActivated() {
+    return this.router.url.includes(this.task._id);
+  }
 
   constructor(private taskService: TaskService, private router: Router, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
@@ -32,6 +35,10 @@ export class TaskBriefComponent implements OnInit {
 
   ngOnInit() {
     this.highlighted = this.task.highlighted;
+  }
+
+  ngOnDestroy() {
+    this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
   checkboxChange(event) {
@@ -48,6 +55,6 @@ export class TaskBriefComponent implements OnInit {
   }
 
   getPath() {
-    return this.mobileQuery.matches ? ['/edit', this.task._id] : ['./', this.task._id]
+    return this.mobileQuery.matches ? ['/edit', this.task._id] : ['./', this.task._id];
   }
 }

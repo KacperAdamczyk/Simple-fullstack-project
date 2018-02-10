@@ -12,6 +12,7 @@ const baseUrl = environment.production ? '' : 'http://localhost:8080/';
 @Injectable()
 export class TaskService {
   tasks$: Observable<ITask>;
+  currentTaskId: string = null;
 
   constructor(private http: HttpClient) {
     this.updateTasks();
@@ -30,6 +31,7 @@ export class TaskService {
   }
 
   getOne(id: string) {
+    this.currentTaskId = id;
     return this.http.get<IResponse>(baseUrl + `tasks/${id}`, { withCredentials: true }).map(data => <any>data.message);
   }
 

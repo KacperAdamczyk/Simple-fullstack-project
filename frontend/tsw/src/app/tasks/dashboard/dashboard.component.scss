@@ -1,8 +1,10 @@
 $border-color: #ebebeb;
+$task-brief-width: 350px;
 
 .content {
+  height: 88vh;
   display: grid;
-  grid-template-columns: 3fr 9fr;
+  grid-template-columns: $task-brief-width auto;
   grid-template-rows: 70px auto;
   grid-template-areas: "options options"
                        "brief details";
@@ -27,16 +29,18 @@ $border-color: #ebebeb;
 
 .content__tasks-brief {
   grid-area: brief;
+  overflow-y: auto;
+  overflow-x: hidden;
+  justify-self: center;
 }
 
 .content__task-details {
   grid-area: details;
   align-self: start;
+  justify-self: stretch;
   border: 1px solid $border-color;
   border-radius: 5px;
-  padding: 10px;
-  //box-shadow: darken($border-color, 10%) 2px 2px 1px;
-  max-width: 500px;
+  padding: 20px;
 }
 
 @media screen and (max-width: 600px) {
