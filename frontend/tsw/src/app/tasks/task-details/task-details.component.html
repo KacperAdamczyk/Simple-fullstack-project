@@ -1,10 +1,13 @@
-<div class="task--empty" *ngIf="(task$ | async) === null; else details">
-  <p>Wybierz zadanie</p>
-</div>
-<ng-template #details>
-  <div class="task--details">
-    <h3 class="task__details-name">{{ (task$ | async)?.name }}</h3>
-    <p class="task__details-desc">{{ (task$ | async)?.description }}</p>
+<div *ngIf="task$ | async; let task; else empty">
+
+  <div class="task--details" [@showInOut]="task._id">
+    <h3 class="task__details-name">{{ task.name }}</h3>
+    <p class="task__details-desc">{{ task.description }}</p>
     <button class="btn btn-outline-primary" [routerLink]="['../edit', (task$ | async)?._id]">Edytuj</button>
+  </div>
+</div>
+<ng-template #empty>
+  <div class="task--empty">
+    <p [@showInOut]="'out'">Wybierz zadanie</p>
   </div>
 </ng-template>

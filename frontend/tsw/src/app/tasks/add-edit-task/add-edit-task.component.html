@@ -1,4 +1,4 @@
-<div class="task-form">
+<div class="task-form" [@showInOut]="'in'">
   <h3 class="task-form--header">{{ newTask ? 'Utwórz nowe zadanie' : 'Edytuj zadanie' }}</h3>
   <form [formGroup]="form" (ngSubmit)="newTask ? add() : edit()">
     <div class="form-group">

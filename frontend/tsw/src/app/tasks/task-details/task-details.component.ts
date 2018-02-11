@@ -4,11 +4,20 @@ import { ITask } from '../itask';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { TaskService } from '../../services/task.service';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-task-details',
   templateUrl: './task-details.component.html',
-  styleUrls: ['./task-details.component.scss']
+  styleUrls: ['./task-details.component.scss'],
+  animations: [
+    trigger('showInOut', [
+      transition('* => *', [
+        style({ opacity: 0 }),
+        animate('0.4s ease-in-out')
+      ])
+    ])
+  ]
 })
 export class TaskDetailsComponent implements OnInit {
   task$: Observable<ITask>;

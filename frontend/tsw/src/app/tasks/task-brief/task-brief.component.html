@@ -1,5 +1,5 @@
 <div class="task-brief" [matTooltip]="task.description" matTooltipPosition="below"
-     [class.task-brief--active]="isActivated">
+     [class.task-brief--active]="isActivated" [@showInOut]="'in'">
   <span class="task-brief__name" [routerLink]="getPath()"
         [class.task-brief__name--done]="task.done">{{ task.name }}</span>
   <div class="task-brief__checkbox" matTooltip="Zakończ" matTooltipPosition="above">

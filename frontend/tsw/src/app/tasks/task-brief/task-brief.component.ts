@@ -1,5 +1,11 @@
 import {
-  ChangeDetectorRef, Component, EventEmitter, HostBinding, Input, OnDestroy, OnInit,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  HostBinding,
+  Input,
+  OnDestroy,
+  OnInit,
   Output
 } from '@angular/core';
 import { ITask } from '../itask';
@@ -8,11 +14,21 @@ import { Router } from '@angular/router';
 
 import 'rxjs/operator/switchMap';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-task-brief',
   templateUrl: './task-brief.component.html',
-  styleUrls: [ './task-brief.component.scss' ]
+  styleUrls: [ './task-brief.component.scss' ],
+  animations: [
+    trigger('showInOut', [
+      state('in', style({ opacity: 1 })),
+      transition('void => *', [
+        style({ opacity: 0 }),
+        animate('0.2s ease-in')
+      ])
+    ])
+  ]
 })
 export class TaskBriefComponent implements OnInit, OnDestroy {
   @HostBinding('class.task-brief--highlighted') highlighted: boolean;
@@ -23,6 +39,7 @@ export class TaskBriefComponent implements OnInit, OnDestroy {
 
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
+
   get isActivated() {
     return this.router.url.includes(this.task._id);
   }
@@ -55,6 +72,6 @@ export class TaskBriefComponent implements OnInit, OnDestroy {
   }
 
   getPath() {
-    return this.mobileQuery.matches ? ['/edit', this.task._id] : ['./', this.task._id];
+    return this.mobileQuery.matches ? [ '/edit', this.task._id ] : [ './', this.task._id ];
   }
 }

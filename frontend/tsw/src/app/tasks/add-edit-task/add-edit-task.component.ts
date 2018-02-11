@@ -8,11 +8,25 @@ import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-add-edit-task',
   templateUrl: './add-edit-task.component.html',
-  styleUrls: [ './add-edit-task.component.scss' ]
+  styleUrls: [ './add-edit-task.component.scss' ],
+  animations: [
+    trigger('showInOut', [
+      state('in', style({ opacity: 1 })),
+      transition('void => *', [
+        style({ opacity: 0 }),
+        animate('0.4s ease-in')
+      ]),
+      transition('* => void', [
+        animate('0.4s ease-out',
+          style({ opacity: 0 }))
+      ]),
+    ])
+  ]
 })
 export class AddEditTaskComponent implements OnInit, OnDestroy {
   form: FormGroup;

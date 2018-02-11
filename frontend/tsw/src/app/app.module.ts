@@ -15,7 +15,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { TaskService } from './services/task.service';
 import { AppRoutingModule } from './app-routing.module';
 import { CookieLawModule } from 'angular2-cookie-law';
-import { StopClickEventPropagationDirective } from './shared/stop-click-event-propagation.directive';
 
 @NgModule({
   declarations: [
